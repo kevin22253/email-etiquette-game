@@ -37,7 +37,6 @@ function startGame() {
 function showStoryNode(nodeId) {
     const storyNode = storyNodes.find(node => node.id === nodeId);
     
-    // Correctly handles stage_1.jpeg vs stage10.jpeg
     const imageName = storyNode.stage >= 10 ? `stage${storyNode.stage}.jpeg` : `stage_${storyNode.stage}.jpeg`;
     storyImageElement.src = imageName;
 
@@ -86,14 +85,17 @@ function showFinalOutcome() {
     
     if (score <= 2) {
         // Bad Outcome
+        // FINAL CORRECTION: Added the underscore
         badOutcomeImage.src = 'stage_13.jpeg'; 
         badOutcomeScreen.classList.remove('hide');
     } else if (score === 3) {
         // Neutral Outcome
+        // FINAL CORRECTION: Added the underscore
         neutralOutcomeImage.src = 'stage_14.jpeg';
         neutralOutcomeScreen.classList.remove('hide');
     } else { // Score is 4 or 5
         // Good Outcome
+        // FINAL CORRECTION: Added the underscore
         goodOutcomeImage.src = 'stage_15.jpeg';
         goodOutcomeScreen.classList.remove('hide');
     }
