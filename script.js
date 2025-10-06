@@ -37,8 +37,10 @@ function startGame() {
 function showStoryNode(nodeId) {
     const storyNode = storyNodes.find(node => node.id === nodeId);
     
-    // Update story content
-    storyImageElement.src = `stage_${storyNode.stage}.png`;
+    // CORRECTED LINE: This now looks for stage_X.jpeg or stageXX.jpeg
+    const imageName = storyNode.stage >= 10 ? `stage${storyNode.stage}.jpeg` : `stage_${storyNode.stage}.jpeg`;
+    storyImageElement.src = imageName;
+
     storyTextElement.innerText = storyNode.text;
 
     // Clear old options
@@ -84,22 +86,25 @@ function showFinalOutcome() {
     
     if (score <= 2) {
         // Bad Outcome
-        badOutcomeImage.src = 'stage_13.png'; // Set the correct image number for this outcome
+        // CORRECTED LINE
+        badOutcomeImage.src = 'stage_13.jpeg'; 
         badOutcomeScreen.classList.remove('hide');
     } else if (score === 3) {
         // Neutral Outcome
-        neutralOutcomeImage.src = 'stage_14.png'; // Set the correct image number for this outcome
+        // CORRECTED LINE
+        neutralOutcomeImage.src = 'stage_14.jpeg';
         neutralOutcomeScreen.classList.remove('hide');
     } else { // Score is 4 or 5
         // Good Outcome
-        goodOutcomeImage.src = 'stage_15.png'; // Set the correct image number for this outcome
+        // CORRECTED LINE
+        goodOutcomeImage.src = 'stage_15.jpeg';
         goodOutcomeScreen.classList.remove('hide');
     }
 }
 
 
 // --- Story Data ---
-// Each node has a 'stage' number corresponding to your image file (stage_1.png, etc.)
+// Each node has a 'stage' number corresponding to your image file
 const storyNodes = [
     // --- SCENARIO 1: The Urgent Request ---
     { id: 1, stage: 1, text: 'You are a Junior Project Coordinator at a large company. Your manager, Ms. Sharma, can be... difficult.', nextNode: 2 },
