@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Etiquette Adventure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="game-container">
+            <div class="image-container">
+                <img id="story-image" src="" alt="Game Scene">
+            </div>
+            
+            <div id="story-text" class="story-text"></div>
+            <div id="options-buttons" class="btn-grid"></div>
+        </div>
+
+        <div id="bad-outcome" class="outcome-screen hide">
+            <div class="image-container">
+                <img id="bad-outcome-image" src="" alt="Bad Outcome">
+            </div>
+            <h2>Fired</h2>
+            <p>The day ends. Unfortunately, your emails have caused a lot of confusion and frustration. The next morning, Ms. Sharma calls you into her office. 'This isn't working out,' she says, pointing towards the door. 'We have to let you go.'</p>
+            <button onclick="startGame()">Play Again</button>
+        </div>
+
+        <div id="neutral-outcome" class="outcome-screen hide">
+            <div class="image-container">
+                <img id="neutral-outcome-image" src="" alt="Neutral Outcome">
+            </div>
+            <h2>No Change</h2>
+            <p>The day ends. Nothing has changed. Your work was average—not bad enough to cause trouble, but not good enough to get noticed. You're back at your desk, the office is quiet, and the only sound is a cricket chirping softly in the corner.</p>
+            <button onclick="startGame()">Play Again</button>
+        </div>
+
+        <div id="good-outcome" class="outcome-screen hide">
+            <div class="image-container">
+                <img id="good-outcome-image" src="" alt="Good Outcome">
+            </div>
+            <h2>Promoted!</h2>
+            <p>Your emails today were exceptional! You were professional, polite, and effective. Ms. Sharma calls you into her office, but this time she's smiling. 'We've been impressed with your communication skills,' she says. 'We're promoting you to Project Manager.'</p>
+            <button onclick="startGame()">Play Again</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
