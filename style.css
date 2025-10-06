@@ -1,0 +1,89 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.image-container {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin: 0 auto 20px auto;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    border: 2px solid #eee;
+}
+
+#story-image, .outcome-screen img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.story-text {
+    margin-bottom: 25px;
+    font-size: 1.1em;
+    color: #333;
+    line-height: 1.6;
+}
+
+.btn-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.btn, button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover, button:hover {
+    background-color: #0056b3;
+}
+
+.outcome-screen {
+    text-align: center;
+}
+
+.outcome-screen h2 {
+    color: #333;
+    font-size: 2em;
+}
+
+.outcome-screen p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.outcome-screen button {
+    background-color: #28a745;
+}
+
+.hide {
+    display: none;
+}
