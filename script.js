@@ -37,7 +37,7 @@ function startGame() {
 function showStoryNode(nodeId) {
     const storyNode = storyNodes.find(node => node.id === nodeId);
     
-    // THIS LOGIC IS NOW FULLY CORRECTED FOR YOUR FILENAMES
+    // FINAL CORRECTED LOGIC
     const imageName = storyNode.stage >= 10 ? `stage${storyNode.stage}.jpeg` : `stage_${storyNode.stage}.jpeg`;
     storyImageElement.src = imageName;
 
@@ -86,17 +86,14 @@ function showFinalOutcome() {
     
     if (score <= 2) {
         // Bad Outcome
-        // CORRECTED FILENAME
         badOutcomeImage.src = 'stage13.jpeg'; 
         badOutcomeScreen.classList.remove('hide');
     } else if (score === 3) {
         // Neutral Outcome
-        // CORRECTED FILENAME
         neutralOutcomeImage.src = 'stage14.jpeg';
         neutralOutcomeScreen.classList.remove('hide');
     } else { // Score is 4 or 5
         // Good Outcome
-        // CORRECTED FILENAME
         goodOutcomeImage.src = 'stage15.jpeg';
         goodOutcomeScreen.classList.remove('hide');
     }
