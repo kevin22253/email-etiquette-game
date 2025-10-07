@@ -87,56 +87,85 @@ function showFinalOutcome() {
 }
 
 // --- Story Data ---
+// Each node has a 'stage' number corresponding to your image file
 const storyNodes = [
-    { id:1, stage:1, text:"Stickman-style office scene. A stick figure manager behind a desk, arms crossed, looking slightly strict. Another smaller stick figure (the player) stands in front of the desk, looking nervous. Minimalist office elements like a computer and a clock on the wall. Simple bright colors, cartoonish stickman style.", nextNode:2 },
-    { id:2, stage:2, text:"Stickman-style close-up of a desk. A stickman hand pointing at a pile of papers labeled 'Project Atlas' and a laptop with a small exclamation mark over it. A stickman clock on the wall shows late afternoon. Cartoonish, simple stick figures and objects, clean minimal background.", nextNode:3 },
-    { id:3, stage:3, text:"Stickman-style computer screen showing an email draft. The subject line box highlighted with a blinking cursor. Two small thought bubbles above the player stickman: one says 'URGENT!!!', another says 'Professional subject line'. Minimalist cartoon style, clean white background, simple stick figures.", options:[
-        { text:"URGENT!!! NEED APPROVAL NOW", correct:false, nextNode:4 },
-        { text:"Urgent: Approval Needed for Project Atlas Report", correct:true, nextNode:4 }
+    // --- SCENARIO 1: The Urgent Request ---
+    { id: 1, stage: 1, text: 'You enter the office. Your manager, Ms. Sharma, is behind her desk, arms crossed, looking strict. You feel a little nervous about the tasks ahead.', nextNode: 2 },
+    { id: 2, stage: 2, text: 'On your desk lies the Project Atlas file. You need her approval before the end of the day. Time is ticking.', nextNode: 3 },
+    { id: 3, stage: 3, text: 'First, the email subject line. How do you get her attention without being unprofessional?', options: [
+        { text: 'URGENT!!! NEED APPROVAL NOW', correct: false, nextNode: 4 },
+        { text: 'Urgent: Approval Needed for Project Atlas Report', correct: true, nextNode: 4 }
     ]},
-    { id:4, stage:4, text:"Stickman-style email draft open on a computer screen. Two options for the first line appear in text boxes above the screen: messy casual vs. polite professional. A small stickman thinking bubble shows the player considering which one to pick. Simple cartoon stickman style, minimal background.", options:[
-        { text:'"Hey, I need you to approve this right away."', correct:false, nextNode:5 },
-        { text:'"Hi Ms. Sharma, I hope you\'re having a productive day. Could you please take a moment to approve the attached?"', correct:true, nextNode:5 }
+    { id: 4, stage: 4, text: 'Now the opening line. How do you start your email to sound polite but prompt?', options: [
+        { text: '"Hey, I need you to approve this right away."', correct: false, nextNode: 5 },
+        { text: '"Hi Ms. Sharma, I hope you\'re having a productive day. Could you please take a moment to approve the attached?"', correct: true, nextNode: 5 }
     ]},
-    { id:5, stage:5, text:"Stickman-style computer screen showing email closing section. Two text options appear above: 'Later,' and 'Best regards,'. The player stickman is looking at the screen with a thinking bubble. Simple, minimalist stick figure cartoon style, clean office background, bright and cheerful colors.", options:[
-        { text:'"Later,"', correct:false, nextNode:6 },
-        { text:'"Best regards,"', correct:true, nextNode:6 }
+    { id: 5, stage: 5, text: 'Finally, the closing line. How do you sign off to keep it professional?', options: [
+        { text: '"Later,"', correct: false, nextNode: 6 },
+        { text: '"Best regards,"', correct: true, nextNode: 6 }
     ]},
-    { id:6, stage:6, text:"Stickman-style office scene. The player stickman sitting at a desk with a laptop, a stickman client on a video call floating in a small window above. Papers labeled 'Proposal.pdf' on the desk. Simple, minimalist cartoon style with bright colors and clean background.", nextNode:7 },
-    { id:7, stage:7, text:"Stickman-style close-up of laptop screen showing email draft. A small pop-up box highlights 'Attach Proposal.pdf'. The player stickman has a thinking bubble showing 'Did I attach it?' Cartoon stick figure style, simple office desk, cheerful colors.", options:[
-        { text:'Just hit "Send". You\'re sure you attached it.', correct:false, nextNode:8 },
-        { text:'Quickly double-check that "proposal.pdf" is attached.', correct:true, nextNode:8 }
+
+    // --- SCENARIO 2: The Client Follow-Up ---
+    { id: 6, stage: 6, text: 'You just finished a video call with a client, Mr. David Lee. You need to send a follow-up email with the proposal attached.', nextNode: 7 },
+    { id: 7, stage: 7, text: 'Before sending, what do you do to ensure everything is correct?', options: [
+        { text: 'Just hit "Send". You\'re sure you attached it.', correct: false, nextNode: 8 },
+        { text: 'Quickly double-check that "proposal.pdf" is attached.', correct: true, nextNode: 8 }
     ]},
-    { id:8, stage:8, text:"Stickman-style scene: the player stickman on a phone call, another small stick figure (coworker or office chatter) approaching. The player stickman has a thought bubble with 'Politely ask them to wait' vs 'Ignore them'. Minimalist cartoon style, office background, simple bright colors.", options:[
-        { text:"Ignore them", correct:false, nextNode:9 },
-        { text:"Politely ask them to wait", correct:true, nextNode:9 }
+    { id: 8, stage: 8, text: 'While on a call, a coworker interrupts you. How do you handle the situation?', options: [
+        { text: 'Ignore them and continue talking to the client.', correct: false, nextNode: 9 },
+        { text: 'Politely ask them to wait until the call is finished.', correct: true, nextNode: 9 }
     ]},
-    { id:9, stage:9, text:"Stickman-style phone interface showing voicemail being recorded. The player stickman next to the phone with a thought bubble showing: 'Name, company, reason, and contact number'. Clean, simple cartoon stickman style, minimal background, bright colors.", nextNode:10 },
-    { id:10, stage:10, text:"Stickman-style scene of the player stickman holding a phone. Two options displayed: 'Just put them on hold' vs 'Ask permission first'. Minimalist office background, simple cartoon stick figures, bright colors, clear focus on the decision.", options:[
-        { text:"Just put them on hold", correct:false, nextNode:11 },
-        { text:"Ask permission first", correct:true, nextNode:11 }
+    { id: 9, stage: 9, text: 'You need to leave a voicemail for another client. How do you structure it?', options: [
+        { text: 'Say your name and hang up quickly.', correct: false, nextNode: 10 },
+        { text: 'Include your name, company, reason for calling, and a callback number.', correct: true, nextNode: 10 }
     ]},
-    { id:11, stage:11, text:"Stickman-style scene showing the player stickman adjusting a laptop camera. A neat, quiet background with a simple desk, chair, and plant. Thought bubble showing 'Test tech, tidy background, good lighting.' Minimalist stickman cartoon style, cheerful colors, clean lines.", nextNode:12 },
-    { id:12, stage:12, text:"Stickman-style scene: the player stickman in front of a mirror, wearing a suit jacket over casual pants. Thought bubble with 'Professional but comfortable.' Cartoonish, minimalist style, simple bright colors.", options:[
-        { text:"Casual", correct:false, nextNode:13 },
-        { text:"Professional but comfortable", correct:true, nextNode:13 }
+    { id: 10, stage: 10, text: 'A colleague calls while you are leaving a voicemail. How should you handle it?', options: [
+        { text: 'Just put them on hold without explanation.', correct: false, nextNode: 11 },
+        { text: 'Ask politely if you can call back after finishing.', correct: true, nextNode: 11 }
     ]},
-    { id:13, stage:13, text:"Stickman-style laptop screen showing a video call interface. The player stickman is sitting calmly, a clock shows 5–10 minutes early. Small 'Joining early' text above the screen. Clean cartoon stickman style, minimal office background.", options:[
-        { text:"Join last minute", correct:false, nextNode:14 },
-        { text:"Join 5-10 minutes early", correct:true, nextNode:14 }
+
+    // --- SCENARIO 3: Online Interview Etiquette ---
+    { id: 11, stage: 11, text: 'You have an online interview scheduled. How do you prepare your workspace?', options: [
+        { text: 'Ignore the background and hope it looks fine.', correct: false, nextNode: 12 },
+        { text: 'Test your tech, tidy your background, and ensure good lighting.', correct: true, nextNode: 12 }
     ]},
-    { id:14, stage:14, text:"Stickman-style scene: the player stickman on video call with a stickman interviewer visible on the laptop. Thought bubble showing 'Maintain eye contact, don’t multitask.' Minimalist cartoon style, bright colors, clean background.", options:[
-        { text:"Multitask", correct:false, nextNode:15 },
-        { text:"Stay focused and maintain eye contact", correct:true, nextNode:15 }
+    { id: 12, stage: 12, text: 'How do you dress for a professional online interview?', options: [
+        { text: 'Casual T-shirt and shorts are fine.', correct: false, nextNode: 13 },
+        { text: 'Wear a professional top, but keep it comfortable.', correct: true, nextNode: 13 }
     ]},
-    { id:15, stage:15, text:"Stickman-style scene: the player stickman smiling and waving at the laptop, text bubble saying 'Thank you for your time!' Clean cartoon stick figure style, minimal background, bright cheerful colors.", nextNode:16 },
-    { id:16, stage:16, text:"Stickman-style scene outside an office building. The player stickman is checking a watch, standing calmly, arriving early. Minimalist background with office door, simple bright cartoon colors. Thought bubble: 'Arrive early, plan ahead.'", nextNode:17 },
-    { id:17, stage:17, text:"Stickman-style scene inside an office interview room. The player stickman is shaking hands with the interviewer stickman. Both smile. Thought bubble above player: 'Stand tall, confident posture.' Minimalist cartoon style, clean interior, bright cheerful colors.", nextNode:18 },
-    { id:18, stage:18, text:"Stickman-style scene at a desk in an interview. Player stickman raising a hand with a small speech bubble: 'Could you tell me more about the team culture?' Interviewer stickman nodding. Simple cartoon stickman style, minimal background.", nextNode:19 },
-    { id:19, stage:19, text:"Stickman-style scene: player stickman has a phone tucked away, sitting upright. Small warning icons above: 'No phone, don’t slouch, stay professional.' Minimalist stickman cartoon style, clean office background, bright colors.", nextNode:20 },
-    { id:20, stage:20, text:"Stickman-style scene: player stickman sending an email or handing a document to a busy coworker stickman. Thought bubble shows: 'I know you’re busy, could you help me when free?' Cartoon stickman style, minimal office background, clear focus on the interaction.", options:[
-        { text:"Demand immediately", correct:false },
-        { text:"Politely ask when free", correct:true }
+    { id: 13, stage: 13, text: 'When do you join the video call?', options: [
+        { text: 'Right at the start time.', correct: false, nextNode: 14 },
+        { text: '5–10 minutes early to show punctuality.', correct: true, nextNode: 14 }
+    ]},
+    { id: 14, stage: 14, text: 'During the interview, how do you stay engaged?', options: [
+        { text: 'Multitask and check your phone.', correct: false, nextNode: 15 },
+        { text: 'Maintain eye contact and focus on the interviewer.', correct: true, nextNode: 15 }
+    ]},
+    { id: 15, stage: 15, text: 'The interview ends. How do you leave on a positive note?', options: [
+        { text: 'Close your laptop silently and leave.', correct: false, nextNode: 16 },
+        { text: 'Smile and thank the interviewer for their time.', correct: true, nextNode: 16 }
+    ]},
+
+    // --- SCENARIO 4: In-Person Interview ---
+    { id: 16, stage: 16, text: 'You arrive at the company for an in-person interview. How do you plan your arrival?', options: [
+        { text: 'Show up just in time.', correct: false, nextNode: 17 },
+        { text: 'Arrive early and plan ahead.', correct: true, nextNode: 17 }
+    ]},
+    { id: 17, stage: 17, text: 'During the interview, how do you project confidence?', options: [
+        { text: 'Slouch and avoid eye contact.', correct: false, nextNode: 18 },
+        { text: 'Stand tall, smile, and shake hands confidently.', correct: true, nextNode: 18 }
+    ]},
+    { id: 18, stage: 18, text: 'You have a chance to ask questions. What do you do?', options: [
+        { text: 'Stay silent; no questions are needed.', correct: false, nextNode: 19 },
+        { text: 'Ask thoughtful questions about the team and role.', correct: true, nextNode: 19 }
+    ]},
+    { id: 19, stage: 19, text: 'How do you avoid mistakes during the interview?', options: [
+        { text: 'Keep your phone out and multitask.', correct: false, nextNode: 20 },
+        { text: 'Put your phone away, sit upright, and stay professional.', correct: true, nextNode: 20 }
+    ]},
+    { id: 20, stage: 20, text: 'Finally, you need to send a request to a busy coworker. How do you ask?', options: [
+        { text: '"I need the data by 3 PM today."', correct: false, nextNode: null },
+        { text: '"I know you\'re busy, but could you help me with this when you have a moment?"', correct: true, nextNode: null }
     ]}
 ];
 
