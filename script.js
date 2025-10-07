@@ -21,12 +21,9 @@ function startGame() {
     score = 0;
     currentNodeId = 1;
     
-    // Hide all outcome screens
     badOutcomeScreen.classList.add('hide');
     neutralOutcomeScreen.classList.add('hide');
     goodOutcomeScreen.classList.add('hide');
-    
-    // Show the game container
     gameContainer.classList.remove('hide');
     
     showStoryNode(currentNodeId);
@@ -34,17 +31,17 @@ function startGame() {
 
 function showStoryNode(nodeId) {
     const storyNode = storyNodes.find(node => node.id === nodeId);
-    
-    const imageName = storyNode.stage >= 21 ? `stage${storyNode.stage}.jpeg` : `stage_${storyNode.stage}.jpeg`;
+    if (!storyNode) return;
+
+    const imageName = `stage_${storyNode.stage}.jpeg`;
     storyImageElement.src = imageName;
 
     storyTextElement.innerText = storyNode.text;
 
-    // Clear old options
     while (optionsButtonsElement.firstChild) {
         optionsButtonsElement.removeChild(optionsButtonsElement.firstChild);
     }
-    
+
     if (storyNode.options) {
         storyNode.options.forEach(option => {
             const button = document.createElement('button');
@@ -53,20 +50,16 @@ function showStoryNode(nodeId) {
             button.addEventListener('click', () => selectOption(option));
             optionsButtonsElement.appendChild(button);
         });
-    } else if (storyNode.nextNode) {
+    } else {
         const button = document.createElement('button');
         button.innerText = 'Continue';
         button.addEventListener('click', () => showStoryNode(storyNode.nextNode));
         optionsButtonsElement.appendChild(button);
-    } else {
-        // End of the game
-        showFinalOutcome();
     }
 }
 
 function selectOption(option) {
     if (option.correct) score++;
-
     if (option.nextNode) {
         showStoryNode(option.nextNode);
     } else {
@@ -76,87 +69,90 @@ function selectOption(option) {
 
 function showFinalOutcome() {
     gameContainer.classList.add('hide');
-    
-    if (score <= 8) {
-        badOutcomeImage.src = 'stage_21.jpeg';
+
+    if (score <= 6) {
+        badOutcomeImage.src = 'stage_13.jpeg';
         badOutcomeScreen.classList.remove('hide');
-    } else if (score <= 14) {
-        neutralOutcomeImage.src = 'stage_22.jpeg';
+    } else if (score <= 13) {
+        neutralOutcomeImage.src = 'stage_14.jpeg';
         neutralOutcomeScreen.classList.remove('hide');
     } else {
-        goodOutcomeImage.src = 'stage_23.jpeg';
+        goodOutcomeImage.src = 'stage_15.jpeg';
         goodOutcomeScreen.classList.remove('hide');
     }
 }
 
-// --- Story Data ---
+// --- Story Nodes (20 Questions, detailed) ---
 const storyNodes = [
-    { id: 1, stage: 1, text: 'You are a Junior Project Coordinator at a large company. Your manager, Ms. Sharma, can be... difficult.', nextNode: 2 },
-    { id: 2, stage: 2, text: 'You need urgent approval for a project file before the end of the day.', nextNode: 3 },
-    { id: 3, stage: 3, text: 'First, the subject line. How do you get her attention without being unprofessional?', options: [
+    { id: 1, stage: 1, text: 'You are a Junior Project Coordinator at a large company. Your manager, Ms. Sharma, is highly detail-oriented but very busy. Today she has a tight schedule and multiple urgent tasks.' , nextNode: 2 },
+    { id: 2, stage: 2, text: 'You need urgent approval for the Project Atlas report to meet the client deadline. You want her attention but don’t want to come off as demanding.', nextNode: 3 },
+    { id: 3, stage: 3, text: 'Choose a subject line that will make her notice your email without seeming rude or aggressive.', options: [
         { text: 'URGENT!!! NEED APPROVAL NOW', correct: false, nextNode: 4 },
         { text: 'Urgent: Approval Needed for Project Atlas Report', correct: true, nextNode: 4 }
     ]},
-    { id: 4, stage: 4, text: 'Next, the opening line. How do you start the email?', options: [
-        { text: '"Hey, I need you to approve this right away."', correct: false, nextNode: 5 },
+    { id: 4, stage: 3, text: 'Now decide the opening line. You want to be polite but clear about the urgency.', options: [
+        { text: '"Hey, approve this now."', correct: false, nextNode: 5 },
         { text: '"Hi Ms. Sharma, I hope you\'re having a productive day. Could you please take a moment to approve the attached?"', correct: true, nextNode: 5 }
     ]},
-    { id: 5, stage: 5, text: 'Finally, the closing. How do you sign off?', options: [
+    { id: 5, stage: 3, text: 'Finally, pick a closing that maintains professionalism.', options: [
         { text: '"Later,"', correct: false, nextNode: 6 },
         { text: '"Best regards,"', correct: true, nextNode: 6 }
     ]},
-    { id: 6, stage: 6, text: 'You finished a successful meeting with a new client. You need to send a follow-up email and attach the proposal.', nextNode: 7 },
-    { id: 7, stage: 7, text: 'The most important part is making sure you actually attach the proposal. What do you do?', options: [
-        { text: 'Just hit "Send". You\'re sure you attached it.', correct: false, nextNode: 8 },
-        { text: 'Quickly double-check that "proposal.pdf" is attached.', correct: true, nextNode: 8 }
+    { id: 6, stage: 4, text: 'After sending the email, you prepare for a client meeting with Mr. David Lee. He expects a proposal follow-up by today.' , nextNode: 7 },
+    { id: 7, stage: 5, text: 'Before sending, check if the attachment is included.', options: [
+        { text: 'Just send it, trust memory', correct: false, nextNode: 8 },
+        { text: 'Double-check that "proposal.pdf" is attached', correct: true, nextNode: 8 }
     ]},
-    { id: 8, stage: 8, text: 'How should you greet the client in your follow-up?', options: [
-        { text: '"Hey David, thanks."', correct: false, nextNode: 9 },
-        { text: '"Dear Mr. Lee, it was a pleasure meeting you today."', correct: true, nextNode: 9 }
+    { id: 8, stage: 5, text: 'Decide the tone for your follow-up email.', options: [
+        { text: 'Casual and brief', correct: false, nextNode: 9 },
+        { text: 'Professional, polite, and concise', correct: true, nextNode: 9 }
     ]},
-    { id: 9, stage: 9, text: 'How do you close the email professionally?', options: [
-        { text: '"Bye."', correct: false, nextNode: 10 },
-        { text: '"Looking forward to your feedback. Best regards,"', correct: true, nextNode: 10 }
+    { id: 9, stage: 6, text: 'Your college group project team also needs a deadline update. How should you inform them?', nextNode: 10 },
+    { id: 10, stage: 7, text: 'Communicate the new deadline effectively.', options: [
+        { text: 'Bury it in a long paragraph', correct: false, nextNode: 11 },
+        { text: 'Highlight clearly: "The new deadline is **Friday, 5 PM**"', correct: true, nextNode: 11 }
     ]},
-    { id: 10, stage: 10, text: 'You are leading a college group project and need to email your team about a change to an internal deadline.', nextNode: 11 },
-    { id: 11, stage: 11, text: 'How do you make sure the new deadline is clear?', options: [
-        { text: 'Bury it in a long paragraph.', correct: false, nextNode: 12 },
-        { text: 'Make the new date bold: "The new deadline is **Friday, 5 PM**."', correct: true, nextNode: 12 }
+    { id: 11, stage: 7, text: 'Do you send a friendly reminder to ensure everyone notices?', options: [
+        { text: 'No reminder', correct: false, nextNode: 12 },
+        { text: 'Yes, a polite reminder', correct: true, nextNode: 12 }
     ]},
-    { id: 12, stage: 12, text: 'Someone didn’t reply to your email. What do you do?', options: [
-        { text: 'Ignore it.', correct: false, nextNode: 13 },
-        { text: 'Send a polite reminder.', correct: true, nextNode: 13 }
+    { id: 12, stage: 8, text: 'Oops! You sent the wrong report to Ms. Davis in Marketing. How should you start your apology?', options: [
+        { text: 'Blame the system', correct: false, nextNode: 13 },
+        { text: 'Take full responsibility', correct: true, nextNode: 13 }
     ]},
-    { id: 13, stage: 13, text: 'One member replies angrily. How do you respond?', options: [
-        { text: 'Reply angrily back.', correct: false, nextNode: 14 },
-        { text: 'Stay professional and calm.', correct: true, nextNode: 14 }
+    { id: 13, stage: 8, text: 'Include the correct report?', options: [
+        { text: 'No', correct: false, nextNode: 14 },
+        { text: 'Yes, attach correct report', correct: true, nextNode: 14 }
     ]},
-    { id: 14, stage: 14, text: 'You accidentally sent the wrong report to Ms. Davis in Marketing.', options: [
-        { text: 'Blame the system.', correct: false, nextNode: 15 },
-        { text: 'Take full responsibility clearly and concisely.', correct: true, nextNode: 15 }
+    { id: 14, stage: 9, text: 'You need a favor from busy coworker Mark. How do you start your email?', options: [
+        { text: '"I need the data by 3 PM today."', correct: false, nextNode: 15 },
+        { text: '"I know you\'re busy, but could you help me when you have a moment?"', correct: true, nextNode: 15 }
     ]},
-    { id: 15, stage: 15, text: 'How soon should you send the apology?', options: [
-        { text: 'Wait a few days.', correct: false, nextNode: 16 },
-        { text: 'Send it immediately.', correct: true, nextNode: 16 }
+    { id: 15, stage: 9, text: 'Do you follow up politely if no response?', options: [
+        { text: 'Ignore it', correct: false, nextNode: 16 },
+        { text: 'Send a polite reminder', correct: true, nextNode: 16 }
     ]},
-    { id: 16, stage: 16, text: 'Do you offer a solution in your apology?', options: [
-        { text: 'No, just apologize.', correct: false, nextNode: 17 },
-        { text: 'Yes, suggest the correct report.', correct: true, nextNode: 17 }
+    { id: 16, stage: 10, text: 'Organize a team meeting to clarify project tasks.', options: [
+        { text: 'Cancel without notice', correct: false, nextNode: 17 },
+        { text: 'Notify all team members politely', correct: true, nextNode: 17 }
     ]},
-    { id: 17, stage: 17, text: 'You need to ask a busy coworker, Mark, for a favor.', options: [
-        { text: '"I need the data by 3 PM today."', correct: false, nextNode: 18 },
-        { text: '"I know you\'re busy, but could you help me with something when you have a moment?"', correct: true, nextNode: 18 }
+    { id: 17, stage: 10, text: 'Share meeting notes for reference?', options: [
+        { text: 'No, rely on memory', correct: false, nextNode: 18 },
+        { text: 'Yes, share notes with everyone', correct: true, nextNode: 18 }
     ]},
-    { id: 18, stage: 18, text: 'Mark responds that he’s busy. How do you continue?', options: [
-        { text: 'Complain.', correct: false, nextNode: 19 },
-        { text: 'Offer flexibility and thank him.', correct: true, nextNode: 19 }
+    { id: 18, stage: 11, text: 'Send weekly status report to manager on time?', options: [
+        { text: 'Skip or delay', correct: false, nextNode: 19 },
+        { text: 'Send on time', correct: true, nextNode: 19 }
     ]},
-    { id: 19, stage: 19, text: 'You finally receive the data. How do you close the conversation?', options: [
-        { text: '"Finally, thanks."', correct: false, nextNode: 20 },
-        { text: '"Thank you very much for your help."', correct: true, nextNode: 20 }
+    { id: 19, stage: 11, text: 'Do you thank your manager for assistance?', options: [
+        { text: 'Never', correct: false, nextNode: 20 },
+        { text: 'Always show gratitude', correct: true, nextNode: 20 }
     ]},
-    { id: 20, stage: 20, text: 'End of the workday. You reflect on how your communication skills affected outcomes.', nextNode: null }
+    { id: 20, stage: 12, text: 'Final challenge: demonstrate full email etiquette, clarity, and professionalism.', options: [
+        { text: 'Ignore rules', correct: false, nextNode: null },
+        { text: 'Follow all best practices', correct: true, nextNode: null }
+    ]}
 ];
 
-// --- Start the game when the page loads ---
+// --- Start the game ---
 startGame();
