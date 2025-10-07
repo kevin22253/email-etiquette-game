@@ -20,31 +20,30 @@ let currentNodeId = 1;
 function startGame() {
     score = 0;
     currentNodeId = 1;
-    
+
     // Hide all outcome screens
     badOutcomeScreen.classList.add('hide');
     neutralOutcomeScreen.classList.add('hide');
     goodOutcomeScreen.classList.add('hide');
-    
+
     // Show the game container
     gameContainer.classList.remove('hide');
-    
+
     showStoryNode(currentNodeId);
 }
 
 function showStoryNode(nodeId) {
     const storyNode = storyNodes.find(node => node.id === nodeId);
-    
-    const imageName = `stage_${storyNode.stage}.jpeg`;
-    storyImageElement.src = imageName;
 
+    storyImageElement.src = `stage_${storyNode.stage}.jpeg`;
     storyTextElement.innerText = storyNode.text;
 
     // Clear old options
     while (optionsButtonsElement.firstChild) {
         optionsButtonsElement.removeChild(optionsButtonsElement.firstChild);
     }
-    
+
+    // Decision node
     if (storyNode.options) {
         storyNode.options.forEach(option => {
             const button = document.createElement('button');
@@ -54,6 +53,7 @@ function showStoryNode(nodeId) {
             optionsButtonsElement.appendChild(button);
         });
     } else {
+        // Transition node
         const button = document.createElement('button');
         button.innerText = 'Continue';
         button.addEventListener('click', () => showStoryNode(storyNode.nextNode));
@@ -63,7 +63,6 @@ function showStoryNode(nodeId) {
 
 function selectOption(option) {
     if (option.correct) score++;
-
     if (option.nextNode) {
         showStoryNode(option.nextNode);
     } else {
@@ -73,11 +72,11 @@ function selectOption(option) {
 
 function showFinalOutcome() {
     gameContainer.classList.add('hide');
-    
-    if (score <= 10) {
+
+    if (score <= 7) {
         badOutcomeImage.src = 'stage_21.jpeg';
         badOutcomeScreen.classList.remove('hide');
-    } else if (score <= 15) {
+    } else if (score <= 14) {
         neutralOutcomeImage.src = 'stage_22.jpeg';
         neutralOutcomeScreen.classList.remove('hide');
     } else {
@@ -87,7 +86,6 @@ function showFinalOutcome() {
 }
 
 // --- Story Data ---
-// Each node has a 'stage' number corresponding to your image file
 const storyNodes = [
     // --- SCENARIO 1: The Urgent Request ---
     { id: 1, stage: 1, text: 'You enter the office. Your manager, Ms. Sharma, is behind her desk, arms crossed, looking strict. You feel a little nervous about the tasks ahead.', nextNode: 2 },
@@ -169,5 +167,5 @@ const storyNodes = [
     ]}
 ];
 
-// Start the game
+// --- Start the game when the page loads ---
 startGame();
